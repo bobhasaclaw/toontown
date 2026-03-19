@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feed the Friend - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    .feed-game {
+      padding: 100px 24px 60px;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 157, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(124, 77, 255, 0.18), transparent 26%),
+        linear-gradient(180deg, #fff3e0 0%, #ffe0b2 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feed-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .feed-header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(36px, 6vw, 52px);
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .feed-header h1 span {
+      color: var(--primary);
+    }
+
+    .feed-header p {
+      color: #5f5177;
+      font-size: 16px;
+    }
+
+    .feed-hud {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .feed-hud-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: var(--dark);
+    }
+
+    .feed-heart {
+      font-size: 28px;
+      transition: transform 0.3s;
+    }
+
+    .feed-heart.lost {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+
+    .feed-arena {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feed-character-area {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(180deg, #e1bee7 0%, #ce93d8 100%);
+      border: 4px solid var(--dark);
+      border-radius: 30px 30px 0 0;
+      box-shadow: 8px 8px 0 var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feed-character {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+
+    .feed-character svg {
+      width: 140px;
+      height: 140px;
+      filter: drop-shadow(4px 4px 0 rgba(45, 27, 78, 0.2));
+    }
+
+    .feed-food-tray {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(180deg, #c8e6c9 0%, #a5d6a7 100%);
+      border: 4px solid var(--dark);
+      border-top: none;
+      border-radius: 0 0 30px 30px;
+      box-shadow: 8px 8px 0 var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 20px;
+    }
+
+    .feed-food-item {
+      cursor: grab;
+      transition: transform 0.2s;
+      animation: foodBounce 1s ease-in-out infinite;
+    }
+
+    .feed-food-item:hover {
+      transform: scale(1.2);
+    }
+
+    .feed-food-item:active {
+      cursor: grabbing;
+    }
+
+    .feed-food-item svg {
+      width: 60px;
+      height: 60px;
+      filter: drop-shadow(2px 2px 0 rgba(45, 27, 78, 0.2));
+    }
+
+    @keyframes foodBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .feed-food-item:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .feed-food-item:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .feed-star {
+      position: absolute;
+      font-family: 'Fredoka One', cursive;
+      animation: popUp 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes popUp {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+      100% { transform: translate(-50%, -80%) scale(1); opacity: 0; }
+    }
+
+    .feed-wrong {
+      position: absolute;
+      font-size: 48px;
+      animation: shake 0.5s ease-out;
+      pointer-events: none;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .feed-hint {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 3px solid var(--dark);
+      border-radius: 20px;
+      font-size: 15px;
+      color: var(--dark);
+      text-align: center;
+    }
+
+    .feed-hint strong {
+      color: var(--primary);
+    }
+
+    /* Start Screen */
+    .feed-start-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.97);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 26px;
+      z-index: 10;
+    }
+
+    .feed-start-screen.hidden {
+      display: none;
+    }
+
+    .feed-characters-demo {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+
+    .feed-characters-demo .demo-char {
+      width: 70px;
+      height: 70px;
+      animation: bounce 0.6s ease-in-out infinite;
+    }
+
+    .feed-characters-demo .demo-char:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .feed-characters-demo .demo-char:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .feed-characters-demo .demo-char:nth-child(4) {
+      animation-delay: 0.45s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .feed-start-screen h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 32px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .feed-start-screen p {
+      color: #5f5177;
+      margin-bottom: 24px;
+      text-align: center;
+      max-width: 280px;
+    }
+
+    .feed-start-btn {
+      padding: 14px 36px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary) 0%, #ff4081 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feed-start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .feed-start-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    /* Game Over Screen */
+    .feed-game-over {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.97);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 26px;
+      z-index: 10;
+    }
+
+    .feed-game-over.active {
+      display: flex;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .feed-game-over h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 38px;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    .feed-game-over .final-score {
+      font-size: 20px;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    .feed-restart-btn {
+      padding: 14px 36px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--secondary) 0%, #651fff 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feed-restart-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .feed-restart-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    /* Back Button */
+    .game-back-btn {
+      margin-top: 20px;
+      padding: 10px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      background: var(--white);
+      border: 3px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 4px 4px 0 var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game-back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0 var(--dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 540px) {
+      .feed-character-area {
+        height: 180px;
+      }
+
+      .feed-character svg {
+        width: 110px;
+        height: 110px;
+      }
+
+      .feed-food-tray {
+        height: 100px;
+        gap: 12px;
+      }
+
+      .feed-food-item svg {
+        width: 50px;
+        height: 50px;
+      }
+
+      .feed-hud {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Feed the Friend Game -->
+  <section class="feed-game">
+    <div class="feed-header">
+      <h1>Feed the <span>Friend!</span></h1>
+      <p>Drag food to feed each hungry character!</p>
+    </div>
+
+    <div class="feed-hud">
+      <div class="feed-hud-item">
+        <span>Score:</span>
+        <span class="feed-score">0</span>
+      </div>
+      <div class="feed-hud-item">
+        <span>Lives:</span>
+        <span class="feed-lives"></span>
+      </div>
+    </div>
+
+    <div class="feed-arena">
+      <!-- Start Screen -->
+      <div class="feed-start-screen">
+        <div class="feed-characters-demo">
+          <div class="demo-char">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="130" rx="60" ry="55" fill="#F8BBD9" stroke="#2D1B4E" stroke-width="4"/>
+              <ellipse cx="70" cy="60" rx="18" ry="45" fill="#F8BBD9" stroke="#2D1B4E" stroke-width="3"/>
+              <ellipse cx="130" cy="60" rx="18" ry="45" fill="#F8BBD9" stroke="#2D1B4E" stroke-width="3"/>
+              <ellipse cx="70" cy="55" rx="10" ry="30" fill="#FFCDD2"/>
+              <ellipse cx="130" cy="55" rx="10" ry="30" fill="#FFCDD2"/>
+              <circle cx="80" cy="115" r="12" fill="#2D1B4E"/>
+              <circle cx="120" cy="115" r="12" fill="#2D1B4E"/>
+              <ellipse cx="100" cy="145" rx="10" ry="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="demo-char">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="120" rx="60" ry="50" fill="#FF9800" stroke="#2D1B4E" stroke-width="4"/>
+              <polygon points="50,80 40,30 70,60" fill="#FF9800" stroke="#2D1B4E" stroke-width="3"/>
+              <polygon points="150,80 160,30 130,60" fill="#FF9800" stroke="#2D1B4E" stroke-width="3"/>
+              <circle cx="75" cy="105" r="12" fill="#2D1B4E"/>
+              <circle cx="125" cy="105" r="12" fill="#2D1B4E"/>
+              <ellipse cx="100" cy="130" rx="10" ry="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="demo-char">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="4"/>
+              <circle cx="100" cy="70" r="40" fill="#FFD740" stroke="#2D1B4E" stroke-width="4"/>
+              <circle cx="85" cy="60" r="8" fill="#2D1B4E"/>
+              <circle cx="115" cy="60" r="8" fill="#2D1B4E"/>
+              <ellipse cx="100" cy="85" rx="20" ry="12" fill="#FF9800" stroke="#2D1B4E" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="demo-char">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="125" rx="65" ry="60" fill="#8D6E63" stroke="#2D1B4E" stroke-width="4"/>
+              <circle cx="50" cy="70" r="22" fill="#8D6E63" stroke="#2D1B4E" stroke-width="3"/>
+              <circle cx="150" cy="70" r="22" fill="#8D6E63" stroke="#2D1B4E" stroke-width="3"/>
+              <circle cx="80" cy="110" r="10" fill="#2D1B4E"/>
+              <circle cx="120" cy="110" r="10" fill="#2D1B4E"/>
+              <ellipse cx="100" cy="140" rx="15" ry="10" fill="#FFD740" stroke="#2D1B4E" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <h2>Feed Hungry Friends!</h2>
+        <p>Each friend loves different food. Drag the right food to feed them!</p>
+        <button class="feed-start-btn">Play!</button>
+      </div>
+
+      <!-- Game Over Screen -->
+      <div class="feed-game-over">
+        <h2>Yummy!</h2>
+        <p class="final-score">You fed 0 friends!</p>
+        <button class="feed-restart-btn">Play Again!</button>
+      </div>
+
+      <!-- Character Area -->
+      <div class="feed-character-area">
+        <div class="feed-character"></div>
+      </div>
+
+      <!-- Food Tray -->
+      <div class="feed-food-tray"></div>
+    </div>
+
+    <a href="games.html" class="game-back-btn">Back to Games</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script src="js/feed.js"></script>
+</body>
+</html>

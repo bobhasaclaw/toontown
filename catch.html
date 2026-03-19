@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Stars - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/catch.css">
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <section class="catch-game">
+    <h2>Catch the <span>Stars!</span></h2>
+    <p class="catch-subtitle">A darker arcade lane with a clean control panel up top and the playfield centered like a real mini game.</p>
+
+    <div class="catch-layout">
+      <!-- How to Play - Left Side -->
+      <div class="game-instructions">
+        <h3>How to Play:</h3>
+        <ol>
+          <li>Move mouse to move ToonTown</li>
+          <li>Click falling stars to catch them!</li>
+          <li>Each star = 1 point</li>
+          <li>Don't let 3 stars miss!</li>
+        </ol>
+      </div>
+
+      <!-- Game Area - Right Side -->
+      <div class="catch-main">
+        <div class="catch-stats">
+          <div class="catch-stat">
+            <div class="catch-stat-label">Score</div>
+            <div class="catch-stat-value catch-score">0</div>
+          </div>
+          <div class="catch-lives"></div>
+        </div>
+
+        <div class="catch-arena">
+          <div class="catch-start-screen">
+            <h3>Ready to Catch?</h3>
+            <p>Move your mouse to control ToonTown and click stars to catch them!</p>
+            <button class="catch-btn catch-btn-primary catch-start-btn">Start Game!</button>
+          </div>
+          <div class="catch-game-over">
+            <h3>Game Over!</h3>
+            <p class="final-score">You caught 0 points!</p>
+            <a href="games.html" class="catch-btn catch-btn-secondary">← Back to Games</a>
+            <button class="catch-btn catch-btn-primary catch-restart-btn">Play Again</button>
+          </div>
+          <div class="catch-character">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+              <circle cx="60" cy="100" r="15" fill="#FFD740" opacity="0.8"/>
+              <circle cx="140" cy="130" r="12" fill="#7C4DFF" opacity="0.8"/>
+              <ellipse cx="75" cy="95" rx="18" ry="22" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+              <ellipse cx="125" cy="95" rx="18" ry="22" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+              <circle cx="80" cy="98" r="10" fill="#2D1B4E"/>
+              <circle cx="130" cy="98" r="10" fill="#2D1B4E"/>
+              <circle cx="83" cy="93" r="4" fill="#FFF"/>
+              <circle cx="133" cy="93" r="4" fill="#FFF"/>
+              <path d="M 70 130 Q 100 155 130 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+              <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+              <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+              <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="catch-controls">
+      <a href="games.html" class="catch-btn catch-btn-secondary">← Back to Games</a>
+    </div>
+  </section>
+
+  <script src="js/shared.js"></script>
+  <script src="js/catch.js"></script>
+</body>
+</html>

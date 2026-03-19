@@ -1,0 +1,334 @@
+/* Character Puzzle - Slide Style */
+.puzzle-game {
+  padding: 110px 24px 80px;
+  background:
+    radial-gradient(circle at top left, rgba(124, 77, 255, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(255, 107, 157, 0.16), transparent 28%),
+    linear-gradient(180deg, #f3e5f5 0%, #e1bee7 50%, #ce93d8 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.puzzle-game h2 {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(36px, 4vw, 54px);
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.puzzle-game h2 span {
+  color: var(--secondary);
+}
+
+.puzzle-subtitle {
+  max-width: 760px;
+  text-align: center;
+  font-size: 18px;
+  color: #5b4a67;
+  margin-bottom: 28px;
+}
+
+/* Horizontal Layout */
+.puzzle-layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 270px) minmax(0, 1fr);
+  gap: 24px;
+  width: min(1120px, 100%);
+  align-items: stretch;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+/* Game Instructions - Left Side */
+.game-instructions {
+  background: rgba(255, 255, 255, 0.96);
+  border: 4px solid var(--dark);
+  border-radius: 20px;
+  padding: 20px 20px 18px;
+  box-shadow: 6px 6px 0 var(--dark);
+  min-width: 0;
+  align-self: start;
+}
+
+.game-instructions h3 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 16px;
+  color: var(--secondary);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.game-instructions ol {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.game-instructions li {
+  margin-bottom: 4px;
+}
+
+.game-instructions strong {
+  color: var(--primary);
+}
+
+/* Game Main Area - Right Side */
+.puzzle-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(45, 27, 78, 0.15);
+  border-radius: 26px;
+  padding: 18px;
+  box-shadow: 0 18px 30px rgba(45, 27, 78, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+/* Game Stats */
+.puzzle-stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.puzzle-stat {
+  background: var(--white);
+  border: 3px solid var(--dark);
+  border-radius: 12px;
+  padding: 6px 15px;
+  text-align: center;
+  box-shadow: 3px 3px 0 var(--dark);
+}
+
+.puzzle-stat-label {
+  font-size: 10px;
+  color: #666;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.puzzle-stat-value {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  color: var(--secondary);
+}
+
+/* Puzzle Container */
+.puzzle-container {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  width: 100%;
+}
+
+/* Reference Image */
+.puzzle-reference {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--white);
+  border: 3px solid var(--dark);
+  border-radius: 15px;
+  padding: 8px;
+  box-shadow: 3px 3px 0 var(--dark);
+  position: sticky;
+  top: 120px;
+}
+
+.puzzle-reference svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Slide Puzzle Board */
+.puzzle-board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  width: min(100%, 360px);
+  aspect-ratio: 1;
+  background: var(--white);
+  border: 4px solid var(--dark);
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 8px 8px 0 var(--dark);
+}
+
+.puzzle-slot {
+  background: rgba(124, 77, 255, 0.1);
+  border: 3px dashed var(--secondary);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.puzzle-slot.empty {
+  background: transparent;
+  border: none;
+}
+
+.puzzle-piece {
+  width: 100%;
+  height: 100%;
+  background: var(--white);
+  border: 3px solid var(--dark);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease-out;
+  box-shadow: 2px 2px 0 var(--dark);
+}
+
+.puzzle-piece:hover {
+  transform: scale(1.02);
+  box-shadow: 3px 3px 0 var(--dark);
+}
+
+.puzzle-piece:active {
+  transform: scale(0.98);
+}
+
+.puzzle-piece.sliding {
+  z-index: 10;
+}
+
+.puzzle-piece svg {
+  width: 90%;
+  height: 90%;
+  pointer-events: none;
+}
+
+/* Piece Numbers */
+.puzzle-piece .piece-num {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  font-size: 12px;
+  color: var(--secondary);
+  font-weight: 700;
+}
+
+/* Instructions */
+.puzzle-instructions {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  max-width: 280px;
+}
+
+/* Win Overlay */
+.puzzle-win {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(45, 27, 78, 0.95);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.puzzle-win.active {
+  display: flex;
+}
+
+.puzzle-win h3 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 36px;
+  color: var(--accent-yellow);
+  margin-bottom: 15px;
+  animation: pulse-scale 1s ease-in-out infinite;
+}
+
+.puzzle-win p {
+  color: var(--white);
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.puzzle-win .win-character {
+  font-size: 80px;
+  margin-bottom: 15px;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+/* Controls */
+.puzzle-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.puzzle-btn {
+  padding: 8px 20px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 14px;
+  border: 3px solid var(--dark);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 0 var(--dark);
+  text-decoration: none;
+}
+
+.puzzle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--dark);
+}
+
+.puzzle-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--dark);
+}
+
+.puzzle-btn-primary {
+  background: linear-gradient(135deg, var(--secondary) 0%, #651fff 100%);
+  color: var(--white);
+}
+
+.puzzle-btn-secondary {
+  background: var(--white);
+  color: var(--dark);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .puzzle-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .puzzle-board {
+    width: min(100%, 280px);
+  }
+
+  .puzzle-reference {
+    width: 96px;
+    justify-self: center;
+    position: static;
+  }
+
+  .puzzle-subtitle {
+    font-size: 16px;
+  }
+}

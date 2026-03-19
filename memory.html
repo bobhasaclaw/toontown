@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Match - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/game.css">
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+    .memory-page {
+      padding: 110px 24px 80px;
+      background:
+        radial-gradient(circle at top left, rgba(0, 229, 255, 0.22), transparent 30%),
+        radial-gradient(circle at top right, rgba(255, 107, 157, 0.16), transparent 28%),
+        linear-gradient(180deg, #e1f5fe 0%, #b3e5fc 52%, #81d4fa 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+    .memory-page > h2,
+    .memory-subtitle,
+    .memory-layout,
+    .memory-controls {
+      width: min(1120px, 100%);
+    }
+    .memory-page h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(34px, 4vw, 52px);
+      text-align: center;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .memory-page h2 span {
+      color: var(--primary);
+    }
+    .memory-subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #455a64;
+      margin-bottom: 28px;
+      max-width: 760px;
+    }
+    .memory-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+    .game-instructions {
+      align-self: start;
+      background: rgba(255, 255, 255, 0.96);
+      border: 4px solid var(--dark);
+      border-radius: 22px;
+      padding: 20px 20px 18px;
+      box-shadow: 6px 6px 0 var(--dark);
+    }
+    .game-instructions h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .game-instructions ol {
+      font-size: 14px;
+    }
+    .memory-main {
+      min-width: 0;
+      background: rgba(255, 255, 255, 0.22);
+      border: 4px solid rgba(45, 27, 78, 0.2);
+      border-radius: 28px;
+      padding: 20px;
+      box-shadow: 0 14px 30px rgba(45, 27, 78, 0.12);
+      backdrop-filter: blur(10px);
+    }
+    .memory-stats {
+      margin-bottom: 18px;
+    }
+    .memory-board {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .memory-controls {
+      margin-top: 0;
+    }
+    @media (max-width: 800px) {
+      .memory-layout {
+        grid-template-columns: 1fr;
+      }
+      .memory-main {
+        padding: 16px;
+      }
+      .memory-board {
+        max-width: min(100%, 380px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <section class="memory-page">
+    <h2>Play <span>Memory Match!</span></h2>
+    <p class="memory-subtitle">Flip cards, track the pairs, and keep the board tidy with a layout that stays readable and balanced as the game gets moving.</p>
+
+    <div class="memory-layout">
+      <!-- How to Play - Left Side -->
+      <div class="game-instructions">
+        <h3>How to Play:</h3>
+        <ol>
+          <li>Click any card to flip it</li>
+          <li>Click another card to find its match</li>
+          <li>If they match - they stay up!</li>
+          <li>Find all 8 pairs to WIN!</li>
+        </ol>
+      </div>
+
+      <!-- Game Area - Right Side -->
+      <div class="memory-main">
+        <div class="memory-stats">
+          <div class="stat-box">
+            <div class="stat-label">Moves</div>
+            <div class="stat-value moves-count">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Pairs</div>
+            <div class="stat-value pairs-count">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Time</div>
+            <div class="stat-value timer-count">0:00</div>
+          </div>
+        </div>
+
+        <div class="memory-board"></div>
+      </div>
+    </div>
+
+    <div class="memory-controls">
+      <a href="games.html" class="memory-btn memory-btn-secondary">← Back to Games</a>
+      <button class="memory-btn memory-btn-primary">New Game</button>
+    </div>
+  </section>
+
+  <!-- Win Modal -->
+  <div class="win-modal" id="winModal">
+    <div class="win-content"></div>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

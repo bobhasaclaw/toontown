@@ -1,0 +1,535 @@
+/* Cartoons Section */
+.cartoons {
+  padding: 80px 30px;
+  background: linear-gradient(180deg, var(--accent-yellow) 0%, #FFE082 50%, var(--background) 100%);
+  min-height: 100vh;
+}
+
+.cartoons h2 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--dark);
+}
+
+.cartoons h2 span {
+  color: var(--primary);
+}
+
+.cartoons-subtitle {
+  text-align: center;
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* Category Tabs */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.category-tab {
+  padding: 12px 28px;
+  border: 4px solid var(--dark);
+  border-radius: 50px;
+  background: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.category-tab:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 var(--dark);
+}
+
+.category-tab.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+/* Episode Grid */
+.episode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .episode-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .episode-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Episode Card */
+.episode-card {
+  background: var(--white);
+  border: 4px solid var(--dark);
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 0 var(--dark);
+}
+
+.episode-card:hover {
+  transform: translateY(-8px) rotate(2deg);
+  box-shadow: 10px 10px 0 var(--dark);
+}
+
+.episode-thumbnail {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.episode-thumbnail svg {
+  width: 120px;
+  height: 120px;
+}
+
+.episode-play-btn {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: var(--white);
+  border: 4px solid var(--dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 0 var(--dark);
+  transition: transform 0.2s;
+}
+
+.episode-card:hover .episode-play-btn {
+  transform: scale(1.1);
+}
+
+.episode-info {
+  padding: 20px;
+}
+
+.episode-category {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--accent-cyan);
+  color: var(--dark);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.episode-category.music {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.episode-category.educational {
+  background: var(--accent-yellow);
+}
+
+.episode-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 20px;
+  color: var(--dark);
+  margin-bottom: 5px;
+}
+
+.episode-duration {
+  font-size: 14px;
+  color: #888;
+}
+
+/* Modal Player */
+.cartoon-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(45, 27, 78, 0.95);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cartoon-modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--white);
+  border: 6px solid var(--dark);
+  border-radius: 30px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 45px;
+  height: 45px;
+  background: var(--primary);
+  border: 4px solid var(--dark);
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.modal-close:hover {
+  transform: rotate(90deg);
+}
+
+/* Cartoon Player */
+.cartoon-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #1a1a2e;
+  position: relative;
+  overflow: hidden;
+}
+
+.cartoon-stage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Progress Bar */
+.cartoon-progress {
+  height: 8px;
+  background: #ddd;
+  position: relative;
+}
+
+.cartoon-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.cartoon-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background: var(--dark);
+}
+
+.control-btn {
+  width: 50px;
+  height: 50px;
+  background: var(--white);
+  border: 3px solid var(--dark);
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.control-btn:hover {
+  transform: scale(1.1);
+}
+
+.control-btn.play {
+  background: var(--primary);
+}
+
+.control-btn.mute {
+  background: var(--secondary);
+}
+
+.cartoon-time {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cartoon-title-display {
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  color: var(--accent-yellow);
+  text-align: center;
+  flex: 1;
+}
+
+/* Scene Animations */
+.scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.scene.active {
+  opacity: 1;
+}
+
+/* Character Animations */
+@keyframes bounce-in {
+  0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(10deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes dance {
+  0%, 100% { transform: rotate(-15deg) translateY(0); }
+  25% { transform: rotate(15deg) translateY(-20px); }
+  50% { transform: rotate(-15deg) translateY(0); }
+  75% { transform: rotate(15deg) translateY(-20px); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+@keyframes slide-right {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+@keyframes walk {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  25% { transform: translateY(-10px) rotate(3deg); }
+  50% { transform: translateY(0) rotate(-3deg); }
+  75% { transform: translateY(-10px) rotate(3deg); }
+}
+
+@keyframes surprised {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.2) translateY(-10px); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.15); }
+}
+
+@keyframes spring-bounce {
+  0% { transform: scale(0) translateY(100px); }
+  40% { transform: scale(1.3) translateY(-20px); }
+  60% { transform: scale(0.9) translateY(10px); }
+  80% { transform: scale(1.1) translateY(-5px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes squash-stretch {
+  0%, 100% { transform: scaleX(1) scaleY(1); }
+  25% { transform: scaleX(1.2) scaleY(0.8); }
+  50% { transform: scaleX(0.9) scaleY(1.2); }
+  75% { transform: scaleX(1.1) scaleY(0.9); }
+}
+
+@keyframes eating {
+  0%, 100% { transform: scaleY(1) rotate(0deg); }
+  16% { transform: scaleY(0.9) rotate(-5deg); }
+  33% { transform: scaleY(1.1) rotate(5deg); }
+  50% { transform: scaleY(0.95) rotate(-3deg); }
+  66% { transform: scaleY(1.05) rotate(3deg); }
+  83% { transform: scaleY(0.98) rotate(-2deg); }
+}
+
+@keyframes excited {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  20% { transform: scale(1.1) rotate(-10deg); }
+  40% { transform: scale(1.15) rotate(10deg); }
+  60% { transform: scale(1.1) rotate(-8deg); }
+  80% { transform: scale(1.12) rotate(8deg); }
+}
+
+@keyframes float-drift {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-15px) translateX(5px); }
+  50% { transform: translateY(-5px) translateX(10px); }
+  75% { transform: translateY(-20px) translateX(5px); }
+}
+
+.character {
+  position: absolute;
+  transition: all 0.3s;
+}
+
+.character.bounce-in {
+  animation: bounce-in 0.6s ease-out forwards;
+}
+
+.character.wiggle {
+  animation: wiggle 0.5s ease-in-out infinite;
+}
+
+.character.dance {
+  animation: dance 0.8s ease-in-out infinite;
+}
+
+.character.jump {
+  animation: jump 0.5s ease-in-out infinite;
+}
+
+.character.shake {
+  animation: shake 0.3s ease-in-out infinite;
+}
+
+.character.walk {
+  animation: walk 0.4s ease-in-out infinite;
+}
+
+.character.surprised {
+  animation: surprised 0.4s ease-out forwards;
+}
+
+.character.spring-bounce {
+  animation: spring-bounce 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.character.squash-stretch {
+  animation: squash-stretch 0.6s ease-in-out infinite;
+}
+
+.character.eating {
+  animation: eating 0.8s ease-in-out infinite;
+}
+
+.character.excited {
+  animation: excited 0.5s ease-in-out infinite;
+}
+
+.character.float-drift {
+  animation: float-drift 3s ease-in-out infinite;
+}
+
+/* Speech Bubbles in Cartoons */
+.cartoon-speech {
+  position: absolute;
+  background: var(--white);
+  border: 4px solid var(--dark);
+  border-radius: 20px;
+  padding: 15px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  max-width: 250px;
+  text-align: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.cartoon-speech.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cartoon-speech::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 30px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 15px solid var(--dark);
+}
+
+.cartoon-speech::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 32px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid var(--white);
+  z-index: 1;
+}
+
+/* Text Display in Cartoons */
+.cartoon-text {
+  position: absolute;
+  font-family: 'Fredoka One', cursive;
+  font-size: 48px;
+  color: var(--white);
+  text-shadow: 4px 4px 0 var(--dark), -2px -2px 0 var(--dark), 2px -2px 0 var(--dark), -2px 2px 0 var(--dark);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.4s;
+}
+
+.cartoon-text.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Loading Spinner */
+.cartoon-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  animation: spin 1s linear infinite;
+}

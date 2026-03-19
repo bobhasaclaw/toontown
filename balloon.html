@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balloon Pop - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    .balloon-game {
+      padding: 100px 24px 60px;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 157, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(124, 77, 255, 0.18), transparent 26%),
+        linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .balloon-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .balloon-header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(36px, 6vw, 52px);
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .balloon-header h1 span {
+      color: var(--primary);
+    }
+
+    .balloon-header p {
+      color: #5f5177;
+      font-size: 16px;
+    }
+
+    .balloon-hud {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .balloon-hud-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: var(--dark);
+    }
+
+    .balloon-heart {
+      font-size: 28px;
+      transition: transform 0.3s;
+    }
+
+    .balloon-heart.lost {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+
+    .balloon-arena {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 480px;
+      background: linear-gradient(180deg, #87CEEB 0%, #E0F7FA 50%, #98FB98 100%);
+      border: 4px solid var(--dark);
+      border-radius: 30px;
+      box-shadow: 8px 8px 0 var(--dark);
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 80px;
+      height: 120px;
+      transition: transform 0.1s;
+      cursor: pointer;
+    }
+
+    .balloon:hover {
+      transform: scale(1.1);
+    }
+
+    .balloon svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(3px 5px 0 rgba(45, 27, 78, 0.2));
+    }
+
+    .balloon.popped {
+      animation: pop 0.3s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.5; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    .score-popup {
+      position: absolute;
+      font-family: 'Fredoka One', cursive;
+      font-size: 28px;
+      color: var(--secondary);
+      text-shadow: 2px 2px 0 var(--dark);
+      animation: floatUp 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    .balloon-miss {
+      position: absolute;
+      font-size: 32px;
+      animation: floatUp 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+    }
+
+    /* Start Screen */
+    .balloon-start-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 26px;
+      z-index: 10;
+    }
+
+    .balloon-start-screen.hidden {
+      display: none;
+    }
+
+    .balloon-demo {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+
+    .balloon-demo .demo-balloon {
+      width: 60px;
+      height: 90px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    .balloon-demo .demo-balloon:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .balloon-demo .demo-balloon:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    .balloon-demo .demo-balloon:nth-child(4) {
+      animation-delay: 0.9s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    .balloon-start-screen h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 32px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .balloon-start-screen p {
+      color: #5f5177;
+      margin-bottom: 24px;
+      text-align: center;
+      max-width: 280px;
+    }
+
+    .balloon-start-btn {
+      padding: 14px 36px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary) 0%, #ff4081 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .balloon-start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .balloon-start-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    /* Game Over Screen */
+    .balloon-game-over {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 26px;
+      z-index: 10;
+    }
+
+    .balloon-game-over.active {
+      display: flex;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .balloon-game-over h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 38px;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    .balloon-game-over .final-score {
+      font-size: 20px;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    .balloon-restart-btn {
+      padding: 14px 36px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--secondary) 0%, #651fff 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .balloon-restart-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .balloon-restart-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    /* Back Button */
+    .game-back-btn {
+      margin-top: 20px;
+      padding: 10px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      background: var(--white);
+      border: 3px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 4px 4px 0 var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game-back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0 var(--dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .balloon-arena {
+        height: 400px;
+      }
+
+      .balloon {
+        width: 65px;
+        height: 100px;
+      }
+
+      .balloon-hud {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Balloon Pop Game -->
+  <section class="balloon-game">
+    <div class="balloon-header">
+      <h1>Balloon <span>Pop!</span></h1>
+      <p>Click the balloons before they float away!</p>
+    </div>
+
+    <div class="balloon-hud">
+      <div class="balloon-hud-item">
+        <span>Score:</span>
+        <span class="balloon-score">0</span>
+      </div>
+      <div class="balloon-hud-item">
+        <span>Lives:</span>
+        <span class="balloon-lives"></span>
+      </div>
+    </div>
+
+    <div class="balloon-arena">
+      <!-- Start Screen -->
+      <div class="balloon-start-screen">
+        <div class="balloon-demo">
+          <div class="demo-balloon">
+            <svg viewBox="0 0 80 120"><ellipse cx="40" cy="45" rx="35" ry="42" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="3"/><polygon points="40,87 35,95 45,95" fill="#ff4081" stroke="#2D1B4E" stroke-width="2"/><path d="M 40 95 Q 42 105 38 115" fill="none" stroke="#2D1B4E" stroke-width="2"/></svg>
+          </div>
+          <div class="demo-balloon">
+            <svg viewBox="0 0 80 120"><ellipse cx="40" cy="45" rx="35" ry="42" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="3"/><polygon points="40,87 35,95 45,95" fill="#651fff" stroke="#2D1B4E" stroke-width="2"/><path d="M 40 95 Q 42 105 38 115" fill="none" stroke="#2D1B4E" stroke-width="2"/></svg>
+          </div>
+          <div class="demo-balloon">
+            <svg viewBox="0 0 80 120"><ellipse cx="40" cy="45" rx="35" ry="42" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/><polygon points="40,87 35,95 45,95" fill="#ffab00" stroke="#2D1B4E" stroke-width="2"/><path d="M 40 95 Q 42 105 38 115" fill="none" stroke="#2D1B4E" stroke-width="2"/></svg>
+          </div>
+          <div class="demo-balloon">
+            <svg viewBox="0 0 80 120"><ellipse cx="40" cy="45" rx="35" ry="42" fill="#00E5FF" stroke="#2D1B4E" stroke-width="3"/><polygon points="40,87 35,95 45,95" fill="#00b8d4" stroke="#2D1B4E" stroke-width="2"/><path d="M 40 95 Q 42 105 38 115" fill="none" stroke="#2D1B4E" stroke-width="2"/></svg>
+          </div>
+        </div>
+        <h2>Pop the Balloons!</h2>
+        <p>Click balloons before they float away! Different colors are worth different points!</p>
+        <button class="balloon-start-btn">Play!</button>
+      </div>
+
+      <!-- Game Over Screen -->
+      <div class="balloon-game-over">
+        <h2>Pop!</h2>
+        <p class="final-score">You popped 0 points!</p>
+        <button class="balloon-restart-btn">Play Again!</button>
+      </div>
+    </div>
+
+    <a href="games.html" class="game-back-btn">Back to Games</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script src="js/balloon.js"></script>
+</body>
+</html>

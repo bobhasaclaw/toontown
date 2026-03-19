@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartoons - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/cartoons.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Cartoons Section -->
+  <section class="cartoons" id="cartoons">
+    <h2>Watch <span>Cartoons!</span></h2>
+    <p class="cartoons-subtitle">Fun stories, music videos, and learning adventures!</p>
+
+    <div class="category-tabs">
+      <button class="category-tab active" onclick="filterEpisodes('all')">All</button>
+      <button class="category-tab" onclick="filterEpisodes('funny')">Funny</button>
+      <button class="category-tab" onclick="filterEpisodes('music')">Music</button>
+      <button class="category-tab" onclick="filterEpisodes('educational')">Educational</button>
+    </div>
+
+    <div class="episode-grid">
+      <!-- Episodes rendered by JS -->
+    </div>
+  </section>
+
+  <!-- Cartoon Modal Player -->
+  <div class="cartoon-modal">
+    <div class="modal-content">
+      <button class="modal-close">✕</button>
+      <div class="cartoon-player">
+        <div class="cartoon-stage"></div>
+      </div>
+      <div class="cartoon-progress">
+        <div class="cartoon-progress-bar"></div>
+      </div>
+      <div class="cartoon-controls">
+        <button class="control-btn play">▶</button>
+        <button class="control-btn mute" onclick="toggleSound()">🔊</button>
+        <span class="cartoon-time">0:00 / 0:00</span>
+        <span class="cartoon-title-display"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 100 30 A 70 70 0 1 0 100 170 A 50 50 0 1 1 100 30" fill="#FFE082" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script src="js/cartoons.js"></script>
+</body>
+</html>

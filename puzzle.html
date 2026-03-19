@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Puzzle - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/puzzle.css">
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <section class="puzzle-game">
+    <h2>Slide <span>Puzzle!</span></h2>
+    <p class="puzzle-subtitle">The puzzle station is now laid out like a proper challenge panel, with the preview and board working together as one unit.</p>
+
+    <div class="puzzle-layout">
+      <!-- How to Play - Left side -->
+      <div class="game-instructions">
+        <h3>How to Play:</h3>
+        <ol>
+          <li>Look at the picture - that's what you're building!</li>
+          <li>Click a piece next to the empty space to slide it</li>
+          <li>Arrange pieces <strong>1, 2, 3, 4</strong> in order</li>
+          <li>When the picture is complete - YOU WIN!</li>
+        </ol>
+      </div>
+
+      <!-- Game Area - Right side -->
+      <div class="puzzle-main">
+        <div class="puzzle-stats">
+          <div class="puzzle-stat">
+            <div class="puzzle-stat-label">Moves</div>
+            <div class="puzzle-stat-value puzzle-moves">0</div>
+          </div>
+        </div>
+
+        <div class="puzzle-container">
+          <!-- Reference image shows what we're building -->
+          <div class="puzzle-reference" title="This is what you're building!"></div>
+
+          <!-- 2x2 Slide Puzzle -->
+          <div class="puzzle-board"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="puzzle-controls">
+      <a href="games.html" class="puzzle-btn puzzle-btn-secondary">← Back to Games</a>
+      <button class="puzzle-btn puzzle-btn-primary puzzle-new-btn">New Game</button>
+    </div>
+  </section>
+
+  <!-- Win Overlay -->
+  <div class="puzzle-win">
+    <div class="win-character">🎉</div>
+    <h3>Puzzle Complete!</h3>
+    <p>Solved in <span class="win-moves">0</span> moves!</p>
+    <button class="puzzle-btn puzzle-btn-primary puzzle-win-btn">Play Again</button>
+    <a href="games.html" class="puzzle-btn puzzle-btn-secondary" style="margin-top: 10px;">← Back to Games</a>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script src="js/puzzle.js"></script>
+</body>
+</html>

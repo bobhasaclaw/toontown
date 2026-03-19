@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jigsaw Jam - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    .jigsaw-game {
+      padding: 100px 24px 60px;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 157, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(124, 77, 255, 0.18), transparent 26%),
+        linear-gradient(180deg, #E8EAF6 0%, #C5CAE9 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .jigsaw-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .jigsaw-header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(36px, 6vw, 52px);
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .jigsaw-header h1 span {
+      color: var(--primary);
+    }
+
+    .jigsaw-header p {
+      color: #5f5177;
+      font-size: 16px;
+    }
+
+    .jigsaw-hud {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 15px;
+    }
+
+    .jigsaw-hud-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px;
+      color: var(--dark);
+    }
+
+    .jigsaw-arena {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .jigsaw-preview-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .jigsaw-preview-label {
+      font-family: 'Fredoka One', cursive;
+      font-size: 16px;
+      color: var(--dark);
+    }
+
+    .jigsaw-preview {
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--dark);
+      border-radius: 12px;
+      background: #FFF;
+      box-shadow: 3px 3px 0 var(--dark);
+    }
+
+    .jigsaw-next-btn {
+      padding: 8px 16px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 14px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--secondary) 0%, #651fff 100%);
+      border: 3px solid var(--dark);
+      border-radius: 20px;
+      box-shadow: 0 3px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .jigsaw-next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 0 var(--dark);
+    }
+
+    .jigsaw-canvas {
+      width: 100%;
+      max-width: 404px;
+      height: auto;
+      aspect-ratio: 1;
+      border: 4px solid var(--dark);
+      border-radius: 20px;
+      box-shadow: 8px 8px 0 var(--dark);
+      background: #FFF;
+      cursor: grab;
+    }
+
+    .jigsaw-canvas:active {
+      cursor: grabbing;
+    }
+
+    .jigsaw-instructions {
+      margin-top: 15px;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 3px solid var(--dark);
+      border-radius: 20px;
+      font-size: 14px;
+      color: var(--dark);
+      text-align: center;
+      box-shadow: 4px 4px 0 var(--dark);
+    }
+
+    .jigsaw-instructions strong {
+      color: var(--primary);
+    }
+
+    /* Start Screen */
+    .jigsaw-start-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.97);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      z-index: 10;
+    }
+
+    .jigsaw-start-screen.hidden {
+      display: none;
+    }
+
+    .jigsaw-demo-pieces {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .jigsaw-demo-pieces .demo-piece {
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--dark);
+      border-radius: 8px;
+      background: #FFF;
+      box-shadow: 3px 3px 0 var(--dark);
+      animation: bounce 0.6s ease-in-out infinite;
+    }
+
+    .jigsaw-demo-pieces .demo-piece:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .jigsaw-demo-pieces .demo-piece:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    .jigsaw-start-screen h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 32px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .jigsaw-start-screen p {
+      color: #5f5177;
+      margin-bottom: 24px;
+      text-align: center;
+      max-width: 280px;
+    }
+
+    .jigsaw-start-btn {
+      padding: 14px 36px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary) 0%, #ff4081 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .jigsaw-start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .jigsaw-start-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    /* Win Screen */
+    .jigsaw-win-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.97);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      z-index: 10;
+    }
+
+    .jigsaw-win-screen.active {
+      display: flex;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .jigsaw-win-screen h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 38px;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    .jigsaw-win-screen .final-score {
+      font-size: 18px;
+      color: var(--dark);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .jigsaw-win-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .jigsaw-restart-btn {
+      padding: 14px 28px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 18px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--secondary) 0%, #651fff 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .jigsaw-restart-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .jigsaw-next-btn-win {
+      padding: 14px 28px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 18px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, #00b8d4 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .jigsaw-next-btn-win:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    /* Back Button */
+    .game-back-btn {
+      margin-top: 20px;
+      padding: 10px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      background: var(--white);
+      border: 3px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 4px 4px 0 var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game-back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0 var(--dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 460px) {
+      .jigsaw-hud {
+        gap: 20px;
+      }
+
+      .jigsaw-hud-item {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Jigsaw Jam Game -->
+  <section class="jigsaw-game">
+    <div class="jigsaw-header">
+      <h1>Jigsaw <span>Jam!</span></h1>
+      <p>Drag pieces to complete the puzzle!</p>
+    </div>
+
+    <div class="jigsaw-hud">
+      <div class="jigsaw-hud-item">
+        <span>Score:</span>
+        <span class="jigsaw-score">0</span>
+      </div>
+      <div class="jigsaw-hud-item">
+        <span>Moves:</span>
+        <span class="jigsaw-moves">0</span>
+      </div>
+    </div>
+
+    <div class="jigsaw-arena">
+      <div class="jigsaw-preview-area">
+        <span class="jigsaw-preview-label">Goal:</span>
+        <canvas class="jigsaw-preview"></canvas>
+        <button class="jigsaw-next-btn">Next Picture</button>
+      </div>
+
+      <canvas class="jigsaw-canvas"></canvas>
+
+      <!-- Start Screen -->
+      <div class="jigsaw-start-screen">
+        <div class="jigsaw-demo-pieces">
+          <div class="demo-piece"></div>
+          <div class="demo-piece"></div>
+          <div class="demo-piece"></div>
+        </div>
+        <h2>Puzzle Time!</h2>
+        <p>Drag puzzle pieces to their correct spots. Match the picture!</p>
+        <button class="jigsaw-start-btn">Start!</button>
+      </div>
+
+      <!-- Win Screen -->
+      <div class="jigsaw-win-screen">
+        <h2>Puzzle Complete!</h2>
+        <p class="final-score">Great job!</p>
+        <div class="jigsaw-win-buttons">
+          <button class="jigsaw-restart-btn">Play Again</button>
+          <button class="jigsaw-next-btn-win">Next Picture</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="jigsaw-instructions">
+      <strong>Tip:</strong> Drag pieces to the grid. They'll snap when close!
+    </div>
+
+    <a href="games.html" class="game-back-btn">Back to Games</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script src="js/jigsaw.js"></script>
+</body>
+</html>

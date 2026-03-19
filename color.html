@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Match - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    .color-game {
+      padding: 100px 24px 60px;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 157, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(124, 77, 255, 0.18), transparent 26%),
+        linear-gradient(180deg, #fff9c4 0%, #fff8e1 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .color-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .color-header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(36px, 6vw, 52px);
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .color-header h1 span {
+      color: var(--primary);
+    }
+
+    .color-header p {
+      color: #5f5177;
+      font-size: 16px;
+    }
+
+    .color-hud {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .color-hud-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: var(--dark);
+    }
+
+    .color-heart {
+      font-size: 28px;
+      transition: transform 0.3s;
+    }
+
+    .color-heart.lost {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+
+    .color-arena {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 450px;
+      background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%);
+      border: 4px solid var(--dark);
+      border-radius: 30px;
+      box-shadow: 8px 8px 0 var(--dark);
+      overflow: hidden;
+    }
+
+    .color-shape {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      cursor: pointer;
+      transition: transform 0.15s;
+      animation: shapeFloat 1s ease-in-out infinite;
+    }
+
+    .color-shape:hover {
+      transform: scale(1.15);
+    }
+
+    .color-shape svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(3px 3px 0 rgba(45, 27, 78, 0.2));
+    }
+
+    .color-shape.sparkle {
+      animation: sparkle 0.5s ease-out forwards;
+    }
+
+    @keyframes shapeFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.8; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    .score-popup {
+      position: absolute;
+      font-family: 'Fredoka One', cursive;
+      font-size: 28px;
+      color: var(--primary);
+      text-shadow: 2px 2px 0 var(--dark);
+      animation: popUp 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    .color-wrong {
+      position: absolute;
+      font-size: 36px;
+      animation: popUp 0.5s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes popUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-40px) scale(1.2); opacity: 0; }
+    }
+
+    /* Start Screen */
+    .color-start-screen {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 26px;
+      z-index: 10;
+    }
+
+    .color-start-screen.hidden {
+      display: none;
+    }
+
+    .color-shapes-demo {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .color-shapes-demo .demo-shape {
+      width: 60px;
+      height: 60px;
+      animation: bounce 0.6s ease-in-out infinite;
+    }
+
+    .color-shapes-demo .demo-shape:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .color-shapes-demo .demo-shape:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .color-shapes-demo .demo-shape:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .color-start-screen h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 32px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .color-start-screen p {
+      color: #5f5177;
+      margin-bottom: 24px;
+      text-align: center;
+      max-width: 280px;
+    }
+
+    .color-start-btn {
+      padding: 14px 36px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 22px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary) 0%, #ff4081 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .color-start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .color-start-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    /* Game Over Screen */
+    .color-game-over {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 26px;
+      z-index: 10;
+    }
+
+    .color-game-over.active {
+      display: flex;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .color-game-over h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 38px;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+
+    .color-game-over .final-score {
+      font-size: 20px;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    .color-restart-btn {
+      padding: 14px 36px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 20px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--secondary) 0%, #651fff 100%);
+      border: 4px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 0 5px 0 var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .color-restart-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 0 var(--dark);
+    }
+
+    .color-restart-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--dark);
+    }
+
+    /* Back Button */
+    .game-back-btn {
+      margin-top: 20px;
+      padding: 10px 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      background: var(--white);
+      border: 3px solid var(--dark);
+      border-radius: 50px;
+      box-shadow: 4px 4px 0 var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game-back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0 var(--dark);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .color-arena {
+        height: 380px;
+      }
+
+      .color-shape {
+        width: 55px;
+        height: 55px;
+      }
+
+      .color-hud {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Color Match Game -->
+  <section class="color-game">
+    <div class="color-header">
+      <h1>Color <span>Match!</span></h1>
+      <p>Click the shapes as they fall!</p>
+    </div>
+
+    <div class="color-hud">
+      <div class="color-hud-item">
+        <span>Score:</span>
+        <span class="color-score">0</span>
+      </div>
+      <div class="color-hud-item">
+        <span>Lives:</span>
+        <span class="color-lives"></span>
+      </div>
+    </div>
+
+    <div class="color-arena">
+      <!-- Start Screen -->
+      <div class="color-start-screen">
+        <div class="color-shapes-demo">
+          <div class="demo-shape">
+            <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="3"/></svg>
+          </div>
+          <div class="demo-shape">
+            <svg viewBox="0 0 60 60"><rect x="4" y="4" width="52" height="52" rx="8" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="3"/></svg>
+          </div>
+          <div class="demo-shape">
+            <svg viewBox="0 0 60 60"><polygon points="30,4 58,56 2,56" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/></svg>
+          </div>
+          <div class="demo-shape">
+            <svg viewBox="0 0 60 60"><polygon points="30,2 58,30 30,58 2,30" fill="#00E5FF" stroke="#2D1B4E" stroke-width="3"/></svg>
+          </div>
+        </div>
+        <h2>Catch the Colors!</h2>
+        <p>Shapes fall from the sky. Click them before they hit the ground!</p>
+        <button class="color-start-btn">Play!</button>
+      </div>
+
+      <!-- Game Over Screen -->
+      <div class="color-game-over">
+        <h2>Game Over!</h2>
+        <p class="final-score">You matched 0 colors!</p>
+        <button class="color-restart-btn">Play Again!</button>
+      </div>
+    </div>
+
+    <a href="games.html" class="game-back-btn">Back to Games</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script src="js/color.js"></script>
+</body>
+</html>

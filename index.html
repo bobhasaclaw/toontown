@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToonTown Express - Welcome to the Fun Zone!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <!-- Floating decorations -->
+    <div class="hero-decoration top-left">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="hero-decoration top-right">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="5" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="5" fill="#2D1B4E"/>
+      </svg>
+    </div>
+    <div class="hero-decoration middle-left">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 100 30 A 70 70 0 1 0 100 170 A 50 50 0 1 1 100 30" fill="#FFE082" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="hero-decoration middle-right">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="hero-decoration bottom-left">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#90CAF9" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#90CAF9" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="5" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="5" fill="#2D1B4E"/>
+      </svg>
+    </div>
+    <div class="hero-decoration bottom-right">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 100 30 A 70 70 0 1 0 100 170 A 50 50 0 1 1 100 30" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>Welcome to <span>ToonTown</span> Express!</h1>
+        <p>Where imagination comes to life! Join our colorful friends on a whimsical adventure filled with fun, creativity, and endless smiles.</p>
+        <a href="cartoons.html" class="btn btn-primary">Watch Cartoons</a>
+        <a href="games.html" class="btn btn-secondary">Play Games!</a>
+      </div>
+      <div class="character-container">
+        <div class="character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Body -->
+            <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+            <!-- Spots -->
+            <circle cx="60" cy="100" r="15" fill="#FFD740" opacity="0.8"/>
+            <circle cx="140" cy="130" r="12" fill="#7C4DFF" opacity="0.8"/>
+            <circle cx="80" cy="150" r="10" fill="#00E5FF" opacity="0.8"/>
+            <!-- Eyes -->
+            <ellipse class="eye" cx="75" cy="95" rx="18" ry="22" fill="#white" stroke="#2D1B4E" stroke-width="3"/>
+            <ellipse class="eye" cx="125" cy="95" rx="18" ry="22" fill="#white" stroke="#2D1B4E" stroke-width="3"/>
+            <!-- Pupils -->
+            <circle cx="80" cy="98" r="10" fill="#2D1B4E"/>
+            <circle cx="130" cy="98" r="10" fill="#2D1B4E"/>
+            <!-- Eye shine -->
+            <circle cx="83" cy="93" r="4" fill="#white"/>
+            <circle cx="133" cy="93" r="4" fill="#white"/>
+            <!-- Mouth -->
+            <path d="M 70 130 Q 100 155 130 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+            <!-- Tongue -->
+            <ellipse cx="100" cy="145" rx="12" ry="8" fill="#FF4081"/>
+            <!-- Cheeks -->
+            <ellipse cx="50" cy="120" rx="12" ry="8" fill="#FF6B9D" opacity="0.5"/>
+            <ellipse cx="150" cy="120" rx="12" ry="8" fill="#FF6B9D" opacity="0.5"/>
+            <!-- Hands -->
+            <ellipse class="hand" cx="35" cy="140" rx="20" ry="18" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="3"/>
+            <ellipse cx="165" cy="140" rx="20" ry="18" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="3"/>
+            <!-- Fingers -->
+            <circle cx="25" cy="125" r="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            <circle cx="35" cy="118" r="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            <circle cx="45" cy="125" r="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            <circle cx="155" cy="125" r="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            <circle cx="165" cy="118" r="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            <circle cx="175" cy="125" r="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+            <!-- Hair tufts -->
+            <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="speech-bubble">Hi there! Welcome! 👋</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2 class="section-title">Why You'll <span>Love</span> It Here</h2>
+    <div class="features-grid">
+      <div class="feature-card" onclick="location.href='cartoons.html'">
+        <div class="feature-icon" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);">
+          <svg viewBox="0 0 200 200" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="120" rx="60" ry="55" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="3"/>
+            <circle cx="75" cy="100" r="8" fill="#2D1B4E"/>
+            <circle cx="125" cy="100" r="8" fill="#2D1B4E"/>
+            <circle cx="78" cy="97" r="3" fill="#FFF"/>
+            <circle cx="128" cy="97" r="3" fill="#FFF"/>
+            <path d="M 80 135 Q 100 155 120 135" fill="none" stroke="#2D1B4E" stroke-width="3" stroke-linecap="round"/>
+            <path d="M 70 65 Q 60 45 80 50" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            <path d="M 100 60 Q 95 40 105 45" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            <path d="M 130 65 Q 145 50 135 45" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>Watch Cartoons</h3>
+        <p>Funny stories, catchy songs, and learning adventures with our colorful friends!</p>
+      </div>
+      <div class="feature-card" onclick="location.href='games.html'">
+        <div class="feature-icon" style="background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--secondary) 100%);">
+          <svg viewBox="0 0 200 200" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="60" width="60" height="80" rx="8" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="3"/>
+            <rect x="110" y="60" width="60" height="80" rx="8" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="3"/>
+            <circle cx="60" cy="100" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="2"/>
+            <circle cx="140" cy="100" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="2"/>
+            <circle cx="60" cy="100" r="6" fill="#2D1B4E"/>
+            <circle cx="140" cy="100" r="6" fill="#2D1B4E"/>
+          </svg>
+        </div>
+        <h3>Play Games</h3>
+        <p>Fun memory games and activities that help you learn while you play!</p>
+      </div>
+      <div class="feature-card" onclick="location.href='characters.html'">
+        <div class="feature-icon" style="background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--primary) 100%);">
+          <svg viewBox="0 0 200 200" width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+            <circle cx="80" cy="85" r="8" fill="#2D1B4E"/>
+            <circle cx="120" cy="85" r="8" fill="#2D1B4E"/>
+            <circle cx="83" cy="82" r="3" fill="#FFF"/>
+            <circle cx="123" cy="82" r="3" fill="#FFF"/>
+            <path d="M 80 115 Q 100 135 120 115" fill="none" stroke="#2D1B4E" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Meet Friends</h3>
+        <p>Get to know all our amazing characters from ToonTown!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 100 30 A 70 70 0 1 0 100 170 A 50 50 0 1 1 100 30" fill="#FFE082" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+</body>
+</html>

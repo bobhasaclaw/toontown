@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    .games-hub {
+      padding: 110px 24px 72px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 157, 0.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(124, 77, 255, 0.18), transparent 28%),
+        linear-gradient(180deg, #fff8e1 0%, #fff2c9 100%);
+      min-height: 100vh;
+    }
+
+    .games-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .games-intro {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 34px;
+    }
+
+    .games-hub h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(42px, 5vw, 60px);
+      line-height: 1;
+      margin-bottom: 14px;
+      color: var(--dark);
+      letter-spacing: 0.02em;
+    }
+
+    .games-hub h2 span {
+      color: var(--primary);
+    }
+
+    .games-hub-subtitle {
+      font-size: 18px;
+      color: #5f5177;
+      margin-bottom: 18px;
+    }
+
+    .games-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 3px solid var(--dark);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 4px 0 var(--dark);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 18px;
+    }
+
+    .games-kicker span {
+      color: var(--primary);
+    }
+
+    .game-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .game-card {
+      background: var(--white);
+      border: 4px solid var(--dark);
+      border-radius: 25px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-shadow: 8px 8px 0 var(--dark);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .game-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 12px 12px 0 var(--dark);
+      border-color: var(--primary);
+    }
+
+    .game-card:focus-visible {
+      outline: 4px solid var(--secondary);
+      outline-offset: 4px;
+    }
+
+    .game-card-visual {
+      position: relative;
+      padding: 28px 24px 22px;
+      min-height: 168px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.5), transparent 30%),
+        linear-gradient(135deg, var(--secondary) 0%, var(--primary) 55%, #ff8fb3 100%);
+      border-bottom: 4px solid var(--dark);
+    }
+
+    .game-card:nth-child(2) .game-card-visual {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 30%),
+        linear-gradient(135deg, #00c6ff 0%, var(--secondary) 55%, #8e74ff 100%);
+    }
+
+    .game-card:nth-child(3) .game-card-visual {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 30%),
+        linear-gradient(135deg, #00e5ff 0%, #30c9a4 55%, #7c4dff 100%);
+    }
+
+    .game-card:nth-child(4) .game-card-visual {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.45), transparent 30%),
+        linear-gradient(135deg, #ffd740 0%, #ffab40 55%, #ff6b9d 100%);
+    }
+
+    .game-card-icon {
+      font-size: 72px;
+      line-height: 1;
+      filter: drop-shadow(0 5px 0 rgba(45, 27, 78, 0.18));
+      transform: translateY(-2px);
+    }
+
+    .game-card-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 2px solid rgba(45, 27, 78, 0.18);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--dark);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .game-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 22px 22px 24px;
+      flex: 1;
+    }
+
+    .game-card h3 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 24px;
+      color: var(--dark);
+      line-height: 1.1;
+    }
+
+    .game-card p {
+      color: #65587a;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .game-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .game-meta span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f7f2ff;
+      border: 2px solid rgba(45, 27, 78, 0.12);
+      color: var(--dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .game-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, var(--primary) 0%, #ff4081 100%);
+      color: var(--white);
+      border: 3px solid var(--dark);
+      border-radius: 50px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 16px;
+      box-shadow: 0 5px 0 var(--dark);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: auto;
+    }
+
+    .game-card:hover .game-card-btn {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 var(--dark);
+    }
+
+    .game-card.disabled:hover {
+      transform: none;
+      box-shadow: 8px 8px 0 var(--dark);
+    }
+
+    .coming-soon-badge {
+      background: var(--secondary);
+      color: var(--white);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Games Hub -->
+  <section class="games-hub">
+    <div class="games-shell">
+      <div class="games-intro">
+        <div class="games-kicker">Play <span>10</span> mini games</div>
+        <h2>Play <span>Games!</span></h2>
+        <p class="games-hub-subtitle">Pick a game, jump in fast, and enjoy a polished little playground of ToonTown fun.</p>
+      </div>
+
+      <div class="game-cards">
+        <!-- Memory Match -->
+        <a href="memory.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">Classic</div>
+            <div class="game-card-icon">🎴</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Memory Match</h3>
+            <p>Find matching pairs of characters in this quick brain teaser built for repeat plays.</p>
+            <div class="game-meta">
+              <span>1 player</span>
+              <span>2-4 min</span>
+              <span>Easy</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Catch the Stars -->
+        <a href="catch.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">Arcade</div>
+            <div class="game-card-icon">⭐</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Catch the Stars</h3>
+            <p>Click falling stars before they escape and keep the action moving as the pace picks up.</p>
+            <div class="game-meta">
+              <span>Score chase</span>
+              <span>Fast paced</span>
+              <span>Arcade</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Bubble Pop -->
+        <a href="bubble.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">Timed</div>
+            <div class="game-card-icon">🫧</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Bubble Pop</h3>
+            <p>Pop bubbles before they float away in a bright, simple challenge that feels great on mobile.</p>
+            <div class="game-meta">
+              <span>Tap game</span>
+              <span>Quick rounds</span>
+              <span>Family friendly</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Puzzle -->
+        <a href="puzzle.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">Puzzle</div>
+            <div class="game-card-icon">🧩</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Character Puzzle</h3>
+            <p>Complete the ToonTown picture with a tidy puzzle layout and a satisfying finish.</p>
+            <div class="game-meta">
+              <span>Relaxed</span>
+              <span>Drag & drop</span>
+              <span>All ages</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Color Match -->
+        <a href="color.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">New!</div>
+            <div class="game-card-icon">🎨</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Color Match</h3>
+            <p>Click falling shapes before they hit the ground in this colorful challenge!</p>
+            <div class="game-meta">
+              <span>Click game</span>
+              <span>Shapes</span>
+              <span>All ages</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Feed the Friend -->
+        <a href="feed.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">New!</div>
+            <div class="game-card-icon">🐰</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Feed the Friend</h3>
+            <p>Drag the right food to hungry characters in this fun feeding game!</p>
+            <div class="game-meta">
+              <span>Drag & drop</span>
+              <span>Food</span>
+              <span>All ages</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Balloon Pop -->
+        <a href="balloon.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">New!</div>
+            <div class="game-card-icon">🎈</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Balloon Pop</h3>
+            <p>Click colorful balloons before they float away in this fun popping game!</p>
+            <div class="game-meta">
+              <span>Click game</span>
+              <span>Balloons</span>
+              <span>All ages</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Fishing Fun -->
+        <a href="fishing.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">New!</div>
+            <div class="game-card-icon">🎣</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Fishing Fun</h3>
+            <p>Cast your line and catch fish in this timing-based fishing adventure!</p>
+            <div class="game-meta">
+              <span>Timing</span>
+              <span>Fish</span>
+              <span>All ages</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Rainbow Race -->
+        <a href="rainbow.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">New!</div>
+            <div class="game-card-icon">🌈</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Rainbow Race</h3>
+            <p>Jump over gaps and obstacles in this colorful running adventure!</p>
+            <div class="game-meta">
+              <span>Runner</span>
+              <span>Jump</span>
+              <span>All ages</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+
+        <!-- Jigsaw Jam -->
+        <a href="jigsaw.html" class="game-card">
+          <div class="game-card-visual">
+            <div class="game-card-badge">New!</div>
+            <div class="game-card-icon">🧩</div>
+          </div>
+          <div class="game-card-body">
+            <h3>Jigsaw Jam</h3>
+            <p>Drag puzzle pieces to complete cute character pictures!</p>
+            <div class="game-meta">
+              <span>Puzzle</span>
+              <span>Drag & drop</span>
+              <span>All ages</span>
+            </div>
+            <span class="game-card-btn">Play Now!</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 100 30 A 70 70 0 1 0 100 170 A 50 50 0 1 1 100 30" fill="#FFE082" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+</body>
+</html>

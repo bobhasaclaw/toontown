@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Characters - ToonTown Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/characters.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-character">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+          <circle cx="75" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="125" cy="95" r="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+          <circle cx="80" cy="98" r="8" fill="#2D1B4E"/>
+          <circle cx="130" cy="98" r="8" fill="#2D1B4E"/>
+          <path d="M 75 130 Q 100 145 125 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+        </svg>
+      </div>
+      ToonTown
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cartoons.html">Cartoons</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Gallery Section -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-shell">
+      <h2 class="section-title">Meet Our <span>Characters</span></h2>
+      <p class="gallery-subtitle">Explore the whole ToonTown crew in a full-page grid instead of a narrow scroll strip.</p>
+
+      <div class="gallery-track">
+      <!-- ToonTown -->
+      <div class="gallery-card" data-character="toonTown">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="120" rx="70" ry="65" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="4"/>
+            <circle cx="60" cy="100" r="15" fill="#FFD740" opacity="0.8"/>
+            <circle cx="140" cy="130" r="12" fill="#7C4DFF" opacity="0.8"/>
+            <circle cx="80" cy="150" r="10" fill="#00E5FF" opacity="0.8"/>
+            <ellipse cx="75" cy="95" rx="18" ry="22" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+            <ellipse cx="125" cy="95" rx="18" ry="22" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+            <circle cx="80" cy="98" r="10" fill="#2D1B4E"/>
+            <circle cx="130" cy="98" r="10" fill="#2D1B4E"/>
+            <circle cx="83" cy="93" r="4" fill="#FFF"/>
+            <circle cx="133" cy="93" r="4" fill="#FFF"/>
+            <path d="M 70 130 Q 100 155 130 130" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+            <ellipse cx="100" cy="145" rx="12" ry="8" fill="#FF4081"/>
+            <path d="M 70 60 Q 60 40 80 45 Q 75 55 85 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            <path d="M 100 55 Q 95 35 105 40 Q 110 50 115 55" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            <path d="M 130 60 Q 145 45 135 40 Q 120 50 125 60" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="gallery-name">ToonTown</div>
+        <div class="gallery-role">Main Character</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      <!-- Rainbow -->
+      <div class="gallery-card" data-character="rainbow">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 20 150 Q 100 50 180 150" fill="none" stroke="#FF0000" stroke-width="15"/>
+            <path d="M 30 150 Q 100 60 170 150" fill="none" stroke="#FFA500" stroke-width="12"/>
+            <path d="M 40 150 Q 100 70 160 150" fill="none" stroke="#FFFF00" stroke-width="10"/>
+            <path d="M 50 150 Q 100 80 150 150" fill="none" stroke="#00FF00" stroke-width="8"/>
+            <path d="M 60 150 Q 100 90 140 150" fill="none" stroke="#0000FF" stroke-width="6"/>
+            <path d="M 70 150 Q 100 100 130 150" fill="none" stroke="#8B00FF" stroke-width="4"/>
+            <ellipse cx="100" cy="170" rx="60" ry="15" fill="#FFF" stroke="#2D1B4E" stroke-width="3"/>
+            <circle cx="75" cy="165" r="8" fill="#2D1B4E"/>
+            <circle cx="125" cy="165" r="8" fill="#2D1B4E"/>
+            <path d="M 85 175 Q 100 185 115 175" fill="none" stroke="#2D1B4E" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="gallery-name">Rainbow</div>
+        <div class="gallery-role">Colorful Friend</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      <!-- Burger -->
+      <div class="gallery-card" data-character="burger">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="100" rx="80" ry="40" fill="#FFD740" stroke="#2D1B4E" stroke-width="4"/>
+            <ellipse cx="100" cy="85" rx="70" ry="25" fill="#8B4513" stroke="#2D1B4E" stroke-width="3"/>
+            <ellipse cx="100" cy="75" rx="65" ry="15" fill="#228B22" stroke="#2D1B4E" stroke-width="2"/>
+            <ellipse cx="100" cy="65" rx="60" ry="20" fill="#FF6347" stroke="#2D1B4E" stroke-width="2"/>
+            <ellipse cx="100" cy="50" rx="70" ry="30" fill="#FFD740" stroke="#2D1B4E" stroke-width="4"/>
+            <ellipse cx="70" cy="35" rx="8" ry="5" fill="#FFF5E6"/>
+            <ellipse cx="100" cy="30" rx="8" ry="5" fill="#FFF5E6"/>
+            <ellipse cx="130" cy="35" rx="8" ry="5" fill="#FFF5E6"/>
+          </svg>
+        </div>
+        <div class="gallery-name">Mr. Burger</div>
+        <div class="gallery-role">Yummy Friend</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      <!-- Star -->
+      <div class="gallery-card" data-character="sparkle">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="4"/>
+            <circle cx="80" cy="85" r="10" fill="#2D1B4E"/>
+            <circle cx="120" cy="85" r="10" fill="#2D1B4E"/>
+            <circle cx="83" cy="82" r="4" fill="#FFF"/>
+            <circle cx="123" cy="82" r="4" fill="#FFF"/>
+            <path d="M 80 115 Q 100 135 120 115" fill="none" stroke="#2D1B4E" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="gallery-name">Sparkle</div>
+        <div class="gallery-role">Shiny Star</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      <!-- Elephant -->
+      <div class="gallery-card" data-character="ellie">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="110" rx="70" ry="60" fill="#90CAF9" stroke="#2D1B4E" stroke-width="4"/>
+            <ellipse cx="45" cy="90" rx="30" ry="35" fill="#90CAF9" stroke="#2D1B4E" stroke-width="4"/>
+            <circle cx="70" cy="95" r="10" fill="#2D1B4E"/>
+            <circle cx="130" cy="95" r="10" fill="#2D1B4E"/>
+            <circle cx="73" cy="92" r="4" fill="#FFF"/>
+            <circle cx="133" cy="92" r="4" fill="#FFF"/>
+            <ellipse cx="100" cy="130" rx="15" ry="10" fill="#7C4DFF" stroke="#2D1B4E" stroke-width="2"/>
+            <path d="M 85 130 Q 75 160 85 180" fill="none" stroke="#90CAF9" stroke-width="15" stroke-linecap="round"/>
+            <path d="M 85 130 Q 75 160 85 180" fill="none" stroke="#2D1B4E" stroke-width="3"/>
+            <ellipse cx="45" cy="70" rx="20" ry="25" fill="#90CAF9" stroke="#2D1B4E" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="gallery-name">Ellie</div>
+        <div class="gallery-role">Trunk Friend</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      <!-- Cat -->
+      <div class="gallery-card" data-character="whiskers">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="120" rx="60" ry="50" fill="#FF9800" stroke="#2D1B4E" stroke-width="4"/>
+            <polygon points="50,80 40,30 70,60" fill="#FF9800" stroke="#2D1B4E" stroke-width="3"/>
+            <polygon points="150,80 160,30 130,60" fill="#FF9800" stroke="#2D1B4E" stroke-width="3"/>
+            <polygon points="50,80 40,30 70,60" fill="#FFB74D"/>
+            <polygon points="150,80 160,30 130,60" fill="#FFB74D"/>
+            <circle cx="75" cy="105" r="12" fill="#2D1B4E"/>
+            <circle cx="125" cy="105" r="12" fill="#2D1B4E"/>
+            <circle cx="78" cy="102" r="5" fill="#4CAF50"/>
+            <circle cx="128" cy="102" r="5" fill="#4CAF50"/>
+            <ellipse cx="100" cy="130" rx="10" ry="6" fill="#FF6B9D" stroke="#2D1B4E" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="gallery-name">Whiskers</div>
+        <div class="gallery-role">Purrfect Friend</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      <!-- Duck -->
+      <div class="gallery-card" data-character="quackers">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="4"/>
+            <circle cx="100" cy="70" r="40" fill="#FFD740" stroke="#2D1B4E" stroke-width="4"/>
+            <circle cx="85" cy="60" r="8" fill="#2D1B4E"/>
+            <circle cx="115" cy="60" r="8" fill="#2D1B4E"/>
+            <circle cx="87" cy="58" r="3" fill="#FFF"/>
+            <circle cx="117" cy="58" r="3" fill="#FFF"/>
+            <ellipse cx="100" cy="85" rx="20" ry="12" fill="#FF9800" stroke="#2D1B4E" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="gallery-name">Quackers</div>
+        <div class="gallery-role">Waddle Friend</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      <!-- Moon -->
+      <div class="gallery-card" data-character="moonbeam">
+        <div class="gallery-character">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 100 30 A 70 70 0 1 0 100 170 A 50 50 0 1 1 100 30" fill="#FFE082" stroke="#2D1B4E" stroke-width="4"/>
+            <circle cx="70" cy="80" r="8" fill="#2D1B4E"/>
+            <circle cx="90" cy="110" r="6" fill="#2D1B4E"/>
+            <circle cx="60" cy="120" r="5" fill="#2D1B4E"/>
+          </svg>
+        </div>
+        <div class="gallery-name">Moonbeam</div>
+        <div class="gallery-role">Dreamy Friend</div>
+        <button class="chat-btn">Chat with Me!</button>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 100 30 A 70 70 0 1 0 100 170 A 50 50 0 1 1 100 30" fill="#FFE082" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,10 120,70 185,70 135,110 155,175 100,140 45,175 65,110 15,70 80,70" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+      </svg>
+    </div>
+    <div class="footer-character">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="130" rx="55" ry="45" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="100" cy="70" r="35" fill="#FFD740" stroke="#2D1B4E" stroke-width="3"/>
+        <circle cx="88" cy="62" r="6" fill="#2D1B4E"/>
+        <circle cx="112" cy="62" r="6" fill="#2D1B4E"/>
+        <ellipse cx="100" cy="82" rx="15" ry="10" fill="#FF9800" stroke="#2D1B4E" stroke-width="2"/>
+      </svg>
+    </div>
+    <p>Made with 💖 by ToonTown Express © 2026</p>
+  </footer>
+
+  <script src="js/shared.js"></script>
+  <script src="js/character-chat.js"></script>
+</body>
+</html>
